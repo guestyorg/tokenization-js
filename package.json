@@ -17,7 +17,7 @@
     "deploy:storybook": "ebisu push-sb-branch"
   },
   "devDependencies": {
-    "@guestyci/ebisu": "^1.4.10",
+    "@guestyci/ebisu": "^3.3.0",
     "eslint": "^6.0.1",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.0.0",

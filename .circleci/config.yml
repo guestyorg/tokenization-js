@@ -5,7 +5,7 @@ orbs:
 defaults:
   working_directory: ~/package
   docker: &ref_0
-    - image: 'circleci/node:11.15.0'
+    - image: circleci/node:16.12.0
 version_filter:
   tags: &ref_1
     only: /^v.*/
@@ -20,7 +20,7 @@ commands:
     description: Authenticate with Registry
     steps:
       - run:
-          command: 'echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc'
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
   install_deps:
     description: Install all dependencies and use cache
     steps:
@@ -28,13 +28,13 @@ commands:
       - restore_cache:
           name: Restore Yarn package cache
           keys:
-            - 'yarn-packages-{{ checksum "yarn.lock" }}'
+            - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
           name: Installing Yarn Pacakges
           command: yarn install --frozen-lockfile
       - save_cache:
           name: Save Yarn package cache
-          key: 'yarn-packages-{{ checksum "yarn.lock" }}'
+          key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
             - ~/.cache/yarn
@@ -79,7 +79,7 @@ jobs:
       - slack/notify:
           message: '*${PACKAGE}* ${CIRCLE_TAG} is out with tag *${TAG}*.'
           color: '#7474EF'
-          webhook: '${SLACK_INFRA_WEBHOOK}'
+          webhook: ${SLACK_INFRA_WEBHOOK}
           include_job_number_field: false
           include_project_field: false
           include_visit_job_action: false
