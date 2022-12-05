@@ -1,0 +1,64 @@
+{
+  "name": "@guestyci/tokenization-js-loader",
+  "version": "0.1.0",
+  "description": "tokenization-js-loader Guesty Node Module",
+  "files": [
+    "src/index.js"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint \"**/*.js\" --fix",
+    "test": "jest --coverage --color",
+    "start": "node ./bin/cli.js",
+    "bootstrapci": "ebisu bootstrap-package",
+    "deployci": "ebisu bump",
+    "build": "node ./build-scripts/copy-files.js",
+    "prettier": "prettier **/*.js",
+    "deploy:storybook": "ebisu push-sb-branch"
+  },
+  "devDependencies": {
+    "@guestyci/ebisu": "^1.4.10",
+    "eslint": "^6.0.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jest": "^23.0.4",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "husky": "^4.2.3",
+    "jest": "^25.1.0",
+    "lint-staged": "^10.0.7",
+    "prettier": "^1.17.1"
+  },
+  "dependencies": {},
+  "jest": {
+    "testRegex": "tests/.*\\.(js|jsx)$"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "yarn lint",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,json,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{jsx,js}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guestyorg/tokenization-js-loader.git"
+  },
+  "keywords": [],
+  "author": "Platform-FE",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/guestyorg/tokenization-js-loader/issues"
+  },
+  "homepage": "https://github.com/guestyorg/tokenization-js-loader#readme",
+  "private": false
+}

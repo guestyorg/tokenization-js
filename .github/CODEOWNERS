@@ -1,0 +1,6 @@
+
+# These owners will be the default owners for everything in
+# the repo. Unless a later match takes precedence,
+# review when someone opens a pull request.
+# for more details go to https://help.github.com/en/articles/about-code-owners
+*       @guestyorg/ui-infrastructure
