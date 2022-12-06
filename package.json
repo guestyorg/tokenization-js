@@ -49,14 +49,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/guestyorg/tokenization-js-loader.git"
+    "url": "git+https://github.com/guestyorg/tokenization-js.git"
   },
   "keywords": [],
   "author": "Guesty",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/guestyorg/tokenization-js-loader/issues"
+    "url": "https://github.com/guestyorg/tokenization-js/issues"
   },
-  "homepage": "https://github.com/guestyorg/tokenization-js-loader#readme",
+  "homepage": "https://github.com/guestyorg/tokenization-js#readme",
   "private": false
 }
