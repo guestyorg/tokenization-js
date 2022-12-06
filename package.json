@@ -7,7 +7,7 @@
   ],
   "main": "index.js",
   "scripts": {
-    "lint": "eslint \"**/*.{js|ts}\" --fix",
+    "lint": "eslint . --fix",
     "test": "jest --coverage --color",
     "bootstrapci": "ebisu bootstrap-package",
     "deployci": "ebisu bump",
