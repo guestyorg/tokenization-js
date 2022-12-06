@@ -26,7 +26,7 @@ export interface GuestyTokenizationNamespace {
   render: (options: GuestyTokenizationRenderOptions) => Promise<void>;
   destroy: () => Promise<void>;
   submit: () => Promise<void>;
-  validate: () => Promise<void>;
+  validate: () => void;
 }
 
 export function loadScript(
