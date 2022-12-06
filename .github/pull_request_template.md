@@ -14,7 +14,7 @@
 
 - [ ] PR must adhere to UI-Infra coding style and quality as described in the rnd-docs
 - [ ] Changes are deployed and tested on the staging environment, passed CI steps
-- [ ] Unit or e2e tests covering new logic
+- [ ] Unit tests covering new logic
 - [ ] No tests/Linter/snapshots issues
 - [ ] Aligned with `master`
 - [ ] Changelog with new logic description  
