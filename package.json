@@ -1,38 +1,36 @@
 {
-  "name": "@guestyci/tokenization-js-loader",
+  "name": "@guestyci/tokenization-js",
   "version": "0.1.0",
-  "description": "tokenization-js-loader Guesty Node Module",
+  "description": "Guesty Tokenization SDK loading utility and types",
   "files": [
     "src/index.js"
   ],
   "main": "index.js",
   "scripts": {
-    "lint": "eslint \"**/*.js\" --fix",
+    "lint": "eslint . --fix",
     "test": "jest --coverage --color",
-    "start": "node ./bin/cli.js",
     "bootstrapci": "ebisu bootstrap-package",
     "deployci": "ebisu bump",
     "build": "node ./build-scripts/copy-files.js",
-    "prettier": "prettier **/*.js",
-    "deploy:storybook": "ebisu push-sb-branch"
+    "prettier": "prettier **/*.{js|ts}"
   },
   "devDependencies": {
-    "@guestyci/ebisu": "^1.4.10",
-    "eslint": "^6.0.1",
+    "@guestyci/ebisu": "^3.3.0",
+    "@types/jest": "^29.2.4",
+    "@typescript-eslint/eslint-plugin": "^5.45.1",
+    "@typescript-eslint/parser": "^5.45.1",
+    "eslint": "^8.29.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-import": "^2.17.2",
-    "eslint-plugin-jest": "^23.0.4",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
     "husky": "^4.2.3",
-    "jest": "^25.1.0",
+    "jest": "^29.3.1",
+    "jest-environment-jsdom": "^29.3.1",
     "lint-staged": "^10.0.7",
-    "prettier": "^1.17.1"
+    "prettier": "^2.8.0",
+    "ts-jest": "^29.0.3",
+    "typescript": "^4.9.3"
   },
   "dependencies": {},
-  "jest": {
-    "testRegex": "tests/.*\\.(js|jsx)$"
-  },
   "husky": {
     "hooks": {
       "pre-push": "yarn lint",
@@ -40,25 +38,25 @@
     }
   },
   "lint-staged": {
-    "*.{js,css,json,md}": [
+    "*.{js,ts,css,json,md}": [
       "prettier --write",
       "git add"
     ],
-    "*.{jsx,js}": [
+    "*.{jsx,js,ts}": [
       "eslint --fix",
       "git add"
     ]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/guestyorg/tokenization-js-loader.git"
+    "url": "git+https://github.com/guestyorg/tokenization-js.git"
   },
   "keywords": [],
-  "author": "Platform-FE",
+  "author": "Guesty",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/guestyorg/tokenization-js-loader/issues"
+    "url": "https://github.com/guestyorg/tokenization-js/issues"
   },
-  "homepage": "https://github.com/guestyorg/tokenization-js-loader#readme",
+  "homepage": "https://github.com/guestyorg/tokenization-js#readme",
   "private": false
 }
