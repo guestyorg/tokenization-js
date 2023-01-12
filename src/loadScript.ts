@@ -7,12 +7,6 @@ import {
 
 const namespace = 'guestyTokenization';
 
-/**
- *
- * @param apiKey
- * @returns {Promise<Object>} reference to the global window Guesty Tokenization object
- */
-
 export const loadScript = (apiKey: string) => {
   if (!apiKey) {
     return Promise.reject(new Error('API key is required'));

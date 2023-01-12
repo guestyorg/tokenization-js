@@ -1,56 +1,75 @@
-# Node module
+# Guesty Tokenization JS SDK
 
-## Table of Contents
+There are two ways to integrate the SDK:
 
-- [Available scripts](#scripts)
-- [Support](#support)
-- [CHANGELOG](#changelog)
+### Manually include a script tag
 
-<a name="scripts"></a>
+Add a script tag to your application ``head`` or ``body`` and replace ``CLIENT_API_KEY`` with your personal client API key.
+This loads ``guestyTokenization`` object to the global ``window`` scope of the browser
 
-## Available scripts
+```html
+<script src="https://pay.guesty.com/tokenization/js/v1.js" data-client-api-key="CLIENT_API_KEY"></script>
+```
 
-This module comes with the following scripts
+#### Note: To be PCI-compliant, you must load the SDK directly from https://pay.guesty.com. You cannot include it in a bundle or host it yourself
 
-- `start`
+### Use it as an ES module
 
-  - Run the cli/executable code - used for local testing
+Advantages of loading the SDK as a module:
 
-- `build`
+- loads script asynchronously to ensure page rendering isn't blocked
+- returns a Promise to know when script loading is complete
+- resolves to ``null`` if called in a server environment
 
-  - copy files to build folder to prepare for deployment
-  - Which files are copied is decided in the `build-scripts/copy-files`
+## Installation
+
+Use ``npm`` to install the Guesty Tokenization JS module:
+
+```sh
+npm install @guesty/tokenization-js
+```
+
+## Usage
+
+Import the ``loadScript`` function for asynchronously loading the Guesty Tokenization JS SDK
 
 
-- `bootstrapci`
+### loadScript(CLIENT_API_KEY)
 
-  - generates a .circleci folder with deployment configs
+-   accepts a client API key to be set as an attribute on the script
+-   returns a Promise that resolves with `window.guestyTokenization` after the SDK is finished loading
 
-- `test`
-    - test runner
-- `deployci`
-    - deployment script (from ebisu)
+#### Async/Await
 
-<a name="command-specification"></a>
+```js
+import { loadScript } from "@guesty/tokenization-js";
 
-when using multiple linked modules, changes may not propagate through nested links. In this case, just make a small change in the project you need to recompile - as long as it is watched with `watch-link` or `yarn start` (in apps), it should recompile.
+try {
+    const guestyTokenization = await loadScript(CLIENT_API_KEY);
+    // Guesty Tokenization JS SDK is loaded and ready to use
+} catch (error) {
+    console.error("Failed to load the Guesty Tokenization JS SDK script", error);
+}
+```
 
-<a name="support"></a>
+#### Promises
 
-## Support
+```js
+import { loadScript } from "@guesty/tokenization-js";
 
-### `--help`
+loadScript(CLIENT_API_KEY)
+    .then((guestyTokenization) => {
+        // Guesty Tokenization JS SDK is loaded and ready to use
+    })
+    .catch((error) => {
+        console.error("Failed to load the Guesty Tokenization JS SDK script", error);
+    });
+```
 
-For any help running scripts please type `--help` to get a list of the options and customizations
+## TypeScript Support
 
-### Are you still stuck?
-
-For additional support, contact the Platform-FE team
-
-Happy Hacking! :)
-
-<a name="changelog"></a>
+This package includes TypeScript type definitions for the Guesty Tokenization JS SDK. This includes types for the `window.guestyTokenization` namespace. We support projects using TypeScript versions >= 3.8.
 
 ## CHANGELOG
 
-The changelog is available [here](https://github.com/guestyorg/jarvis/blob/master/CHANGELOG.md)
+The changelog is available [here](https://github.com/guestyorg/tokenization-js/blob/master/CHANGELOG.md)
