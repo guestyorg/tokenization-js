@@ -1,9 +1,4 @@
-import {
-  findScriptElement,
-  getEnv,
-  injectScriptElement,
-  getScriptUrl,
-} from './utils';
+import { findScriptElement, injectScriptElement, getScriptUrl } from './utils';
 
 describe('findScriptElement', () => {
   it('should return null if no script element is found', () => {
@@ -26,22 +21,6 @@ describe('findScriptElement', () => {
     const foundScript = findScriptElement(url);
 
     expect(foundScript).toBe(script);
-  });
-});
-
-describe('getEnv', () => {
-  it('should return the env if it is present in the key', () => {
-    const apiKey = 'pk_test_123';
-    const env = getEnv(apiKey);
-
-    expect(env).toBe('test');
-  });
-
-  it('should return `production` if the env is not found in the key', () => {
-    const apiKey = 'pk_123';
-    const env = getEnv(apiKey);
-
-    expect(env).toBe('production');
   });
 });
 
@@ -75,7 +54,7 @@ describe('injectScriptElement', () => {
     const onSuccess = jest.fn();
     const onError = jest.fn();
 
-    injectScriptElement({ apiKey, url, onSuccess, onError });
+    injectScriptElement({ url, onSuccess, onError });
 
     const script = document.head.querySelector('script');
     if (!script) {

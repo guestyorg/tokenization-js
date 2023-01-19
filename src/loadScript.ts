@@ -1,29 +1,18 @@
-import {
-  findScriptElement,
-  injectScriptElement,
-  getEnv,
-  getScriptUrl,
-} from './utils';
+import { findScriptElement, injectScriptElement, getScriptUrl } from './utils';
+
+export interface LoadScriptOptions {
+  env?: string;
+}
 
 const namespace = 'guestyTokenization';
 
-/**
- *
- * @param apiKey
- * @returns {Promise<Object>} reference to the global window Guesty Tokenization object
- */
-
-export const loadScript = (apiKey: string) => {
-  if (!apiKey) {
-    return Promise.reject(new Error('API key is required'));
-  }
-
+export const loadScript = (options: LoadScriptOptions = {}) => {
   if (typeof window === 'undefined') {
     return Promise.resolve(null);
   }
 
   const existingNamespace = window[namespace];
-  const env = getEnv(apiKey);
+  const env = options.env || 'production';
   const url = getScriptUrl(env);
 
   if (findScriptElement(url) && existingNamespace) {
@@ -32,7 +21,6 @@ export const loadScript = (apiKey: string) => {
 
   return new Promise((resolve, reject) => {
     injectScriptElement({
-      apiKey,
       url,
       onSuccess: () => {
         const newNamespace = window[namespace];
