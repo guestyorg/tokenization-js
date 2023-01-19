@@ -4,11 +4,11 @@ There are two ways to integrate the SDK:
 
 ### Manually include a script tag
 
-Add a script tag to your application ``head`` or ``body`` and replace ``CLIENT_API_KEY`` with your personal client API key.
-This loads ``guestyTokenization`` object to the global ``window`` scope of the browser
+Add a script tag to your application `head` or `body`.
+This loads `guestyTokenization` object to the global `window` scope of the browser
 
 ```html
-<script src="https://pay.guesty.com/tokenization/js/v1.js" data-client-api-key="CLIENT_API_KEY"></script>
+<script src="https://pay.guesty.com/tokenization/js/v1.js"></script>
 ```
 
 #### Note: To be PCI-compliant, you must load the SDK directly from https://pay.guesty.com. You cannot include it in a bundle or host it yourself
@@ -19,11 +19,11 @@ Advantages of loading the SDK as a module:
 
 - loads script asynchronously to ensure page rendering isn't blocked
 - returns a Promise to know when script loading is complete
-- resolves to ``null`` if called in a server environment
+- resolves to `null` if called in a server environment
 
 ## Installation
 
-Use ``npm`` to install the Guesty Tokenization JS module:
+Use `npm` to install the Guesty Tokenization JS module:
 
 ```sh
 npm install @guesty/tokenization-js
@@ -31,39 +31,45 @@ npm install @guesty/tokenization-js
 
 ## Usage
 
-Import the ``loadScript`` function for asynchronously loading the Guesty Tokenization JS SDK
+Import the `loadScript` function for asynchronously loading the Guesty Tokenization JS SDK
 
+### loadScript(options)
 
-### loadScript(CLIENT_API_KEY)
+- accepts an `options` object to configure script URL and attributes
+- returns a Promise that resolves with `window.guestyTokenization` after the SDK is finished loading
 
--   accepts a client API key to be set as an attribute on the script
--   returns a Promise that resolves with `window.guestyTokenization` after the SDK is finished loading
+#### options
+
+- `env` - the environment to load the SDK from. Supported values: 'sandbox', 'production'. Defaults to 'production'
 
 #### Async/Await
 
 ```js
-import { loadScript } from "@guesty/tokenization-js";
+import { loadScript } from '@guesty/tokenization-js';
 
 try {
-    const guestyTokenization = await loadScript(CLIENT_API_KEY);
-    // Guesty Tokenization JS SDK is loaded and ready to use
+  const guestyTokenization = await loadScript();
+  // Guesty Tokenization JS SDK is loaded and ready to use
 } catch (error) {
-    console.error("Failed to load the Guesty Tokenization JS SDK script", error);
+  console.error('Failed to load the Guesty Tokenization JS SDK script', error);
 }
 ```
 
 #### Promises
 
 ```js
-import { loadScript } from "@guesty/tokenization-js";
+import { loadScript } from '@guesty/tokenization-js';
 
-loadScript(CLIENT_API_KEY)
-    .then((guestyTokenization) => {
-        // Guesty Tokenization JS SDK is loaded and ready to use
-    })
-    .catch((error) => {
-        console.error("Failed to load the Guesty Tokenization JS SDK script", error);
-    });
+loadScript()
+  .then((guestyTokenization) => {
+    // Guesty Tokenization JS SDK is loaded and ready to use
+  })
+  .catch((error) => {
+    console.error(
+      'Failed to load the Guesty Tokenization JS SDK script',
+      error
+    );
+  });
 ```
 
 ## TypeScript Support
