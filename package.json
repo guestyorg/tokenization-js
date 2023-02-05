@@ -9,13 +9,10 @@
   "scripts": {
     "lint": "eslint . --fix",
     "test": "jest --coverage --color",
-    "bootstrapci": "ebisu bootstrap-package",
-    "deployci": "ebisu bump",
     "build": "node ./build-scripts/copy-files.js",
     "prettier": "prettier **/*.{js|ts}"
   },
   "devDependencies": {
-    "@guestyci/ebisu": "^3.3.0",
     "@types/jest": "^29.2.4",
     "@typescript-eslint/eslint-plugin": "^5.45.1",
     "@typescript-eslint/parser": "^5.45.1",
@@ -52,7 +49,7 @@
   },
   "keywords": [],
   "author": "Guesty",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/guestyorg/tokenization-js/issues"
   },
