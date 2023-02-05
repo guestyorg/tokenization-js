@@ -1,29 +1,24 @@
-import { findScriptElement, injectScriptElement, getScriptUrl } from './utils';
-
-export interface LoadScriptOptions {
-  env?: string;
-}
-
-const namespace = 'guestyTokenization';
+import { findScriptElement, injectScriptElement } from './utils';
+import { NAMESPACE, SCRIPT_URL } from './constants';
+import { LoadScriptOptions } from '../types';
 
 export const loadScript = (options: LoadScriptOptions = {}) => {
   if (typeof window === 'undefined') {
     return Promise.resolve(null);
   }
 
-  const existingNamespace = window[namespace];
-  const env = options.env || 'production';
-  const url = getScriptUrl(env);
+  const existingNamespace = window[NAMESPACE];
 
-  if (findScriptElement(url) && existingNamespace) {
+  if (findScriptElement(SCRIPT_URL) && existingNamespace) {
     return Promise.resolve(existingNamespace);
   }
 
   return new Promise((resolve, reject) => {
     injectScriptElement({
-      url,
+      url: SCRIPT_URL,
+      sandbox: options.sandbox ?? false,
       onSuccess: () => {
-        const newNamespace = window[namespace];
+        const newNamespace = window[NAMESPACE];
 
         if (newNamespace) {
           resolve(newNamespace);
@@ -32,7 +27,7 @@ export const loadScript = (options: LoadScriptOptions = {}) => {
         }
       },
       onError: () => {
-        reject(new Error(`The script ${url} failed to load`));
+        reject(new Error(`The script ${SCRIPT_URL} failed to load`));
       },
     });
   });
