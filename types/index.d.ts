@@ -29,8 +29,12 @@ export interface GuestyTokenizationNamespace {
   validate: () => void;
 }
 
+export interface LoadScriptOptions {
+  sandbox?: boolean;
+}
+
 export function loadScript(
-  apiKey: string
+  options?: LoadScriptOptions
 ): Promise<GuestyTokenizationNamespace | null>;
 
 declare global {
