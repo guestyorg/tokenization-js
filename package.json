@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "eslint . --fix",
     "test": "jest --coverage --color",
-    "build": "node ./build-scripts/copy-files.js",
+    "build": "node ./scripts/copy-files.js",
     "prettier": "prettier **/*.{js|ts}"
   },
   "devDependencies": {
