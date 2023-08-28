@@ -25,5 +25,5 @@ export const injectScriptElement = ({
     script.setAttribute('data-env', 'sandbox');
   }
 
-  document.head.appendChild(script);
+  document.head.insertBefore(script, document.head.firstElementChild);
 };
