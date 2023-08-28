@@ -7,10 +7,13 @@ export const loadScript = (options: LoadScriptOptions = {}) => {
     return Promise.resolve(null);
   }
 
+  const existingScript = findScriptElement(SCRIPT_URL);
   const existingNamespace = window[NAMESPACE];
-
-  if (findScriptElement(SCRIPT_URL) && existingNamespace) {
-    return Promise.resolve(existingNamespace);
+  if (existingScript) {
+    if (existingNamespace) {
+      return Promise.resolve(existingNamespace);
+    }
+    existingScript.remove();
   }
 
   return new Promise((resolve, reject) => {
