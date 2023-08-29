@@ -1,18 +1,24 @@
 {
-  "name": "@guestyci/tokenization-js",
+  "name": "@guesty/tokenization-js",
   "version": "0.1.0",
   "description": "Guesty Tokenization SDK loading utility and types",
-  "files": [
-    "src/index.js"
-  ],
   "main": "index.js",
+  "module": "lib/esm/guesty-tokenization-js.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "lib",
+    "types"
+  ],
   "scripts": {
-    "lint": "eslint . --fix",
     "test": "jest --coverage --color",
-    "build": "node ./build-scripts/copy-files.js",
+    "clean": "rm -rf ./lib",
+    "build": "yarn clean && rollup --config --bundleConfigAsCjs",
+    "lint": "eslint . --fix",
     "prettier": "prettier **/*.{js|ts}"
   },
   "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.3",
+    "@rollup/plugin-typescript": "^11.1.2",
     "@types/jest": "^29.2.4",
     "@typescript-eslint/eslint-plugin": "^5.45.1",
     "@typescript-eslint/parser": "^5.45.1",
@@ -24,6 +30,7 @@
     "jest-environment-jsdom": "^29.3.1",
     "lint-staged": "^10.0.7",
     "prettier": "^2.8.0",
+    "rollup": "^3.28.1",
     "ts-jest": "^29.0.3",
     "typescript": "^4.9.3"
   },
