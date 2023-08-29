@@ -1,31 +1,38 @@
 export interface GuestyTokenizationStyles {
-  mobileBreakpoint: number;
-  fontFamily: string;
-  fontSizeMd: number;
-  fontSizeLg: number;
-  fontWeightRegular: number;
-  fontWeightBold: number;
-  colorText: string;
-  colorTextError: string;
-  colorBorder: string;
-  colorBorderError: string;
-  colorBorderHover: string;
-  colorPlaceholder: string;
-  colorBackgroundError: string;
-  colorBackgroundDisabled: string;
+  mobileBreakpoint?: number;
+  fontFamily?: string;
+  fontSizeMd?: number;
+  fontSizeLg?: number;
+  fontWeightRegular?: number;
+  fontWeightBold?: number;
+  colorText?: string;
+  colorTextError?: string;
+  colorBorder?: string;
+  colorBorderError?: string;
+  colorBorderHover?: string;
+  colorPlaceholder?: string;
+  colorBackgroundError?: string;
+  colorBackgroundDisabled?: string;
 }
 
 export interface GuestyTokenizationRenderOptions {
   containerId: string;
   providerId: string;
+  amount: number;
+  currency: string;
   onStatusChange?: (status: boolean) => void;
   styles?: GuestyTokenizationStyles;
+  lang?: string;
+}
+
+export interface PaymentMethod {
+  _id: string;
 }
 
 export interface GuestyTokenizationNamespace {
   render: (options: GuestyTokenizationRenderOptions) => Promise<void>;
   destroy: () => Promise<void>;
-  submit: () => Promise<void>;
+  submit: () => Promise<PaymentMethod>;
   validate: () => void;
 }
 
