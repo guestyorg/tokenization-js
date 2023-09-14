@@ -26,7 +26,7 @@ Advantages of loading the SDK as a module:
 Use `npm` to install the Guesty Tokenization JS module:
 
 ```sh
-npm install @guesty/tokenization-js
+npm install @guestyorg/tokenization-js
 ```
 
 ## Usage

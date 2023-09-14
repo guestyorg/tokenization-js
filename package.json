@@ -1,5 +1,5 @@
 {
-  "name": "@guesty/tokenization-js",
+  "name": "@guestyorg/tokenization-js",
   "version": "0.1.0",
   "description": "Guesty Tokenization SDK loading utility and types",
   "main": "index.js",
