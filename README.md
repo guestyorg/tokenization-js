@@ -26,7 +26,7 @@ Advantages of loading the SDK as a module:
 Use `npm` to install the Guesty Tokenization JS module:
 
 ```sh
-npm install @guesty/tokenization-js
+npm install @guestyorg/tokenization-js
 ```
 
 ## Usage
@@ -88,7 +88,3 @@ loadScript()
 ## TypeScript Support
 
 This package includes TypeScript type definitions for the Guesty Tokenization JS SDK. This includes types for the `window.guestyTokenization` namespace. We support projects using TypeScript versions >= 3.8.
-
-## CHANGELOG
-
-The changelog is available [here](https://github.com/guestyorg/tokenization-js/blob/master/CHANGELOG.md)
