@@ -1,3 +1,0 @@
-## Unpublished
-
-Initial stable release

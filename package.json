@@ -1,5 +1,5 @@
 {
-  "name": "@guesty/tokenization-js",
+  "name": "@guestyorg/tokenization-js",
   "version": "0.1.0",
   "description": "Guesty Tokenization SDK loading utility and types",
   "main": "index.js",
@@ -14,7 +14,8 @@
     "clean": "rm -rf ./lib",
     "build": "yarn clean && rollup --config --bundleConfigAsCjs",
     "lint": "eslint . --fix",
-    "prettier": "prettier **/*.{js|ts}"
+    "prettier": "prettier **/*.{js|ts}",
+    "release": "np --no-publish"
   },
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.3",
@@ -60,6 +61,9 @@
   "bugs": {
     "url": "https://github.com/guestyorg/tokenization-js/issues"
   },
-  "homepage": "https://github.com/guestyorg/tokenization-js#readme",
-  "private": false
+  "homepage": "https://github.com/guestyorg/tokenization-js/wiki",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  }
 }
