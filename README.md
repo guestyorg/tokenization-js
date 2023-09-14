@@ -88,7 +88,3 @@ loadScript()
 ## TypeScript Support
 
 This package includes TypeScript type definitions for the Guesty Tokenization JS SDK. This includes types for the `window.guestyTokenization` namespace. We support projects using TypeScript versions >= 3.8.
-
-## CHANGELOG
-
-The changelog is available [here](https://github.com/guestyorg/tokenization-js/blob/master/CHANGELOG.md)
