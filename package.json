@@ -63,5 +63,8 @@
     "url": "https://github.com/guestyorg/tokenization-js/issues"
   },
   "homepage": "https://github.com/guestyorg/tokenization-js/wiki",
-  "private": false
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  }
 }
