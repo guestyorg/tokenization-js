@@ -13,7 +13,6 @@ describe('findScriptElement', () => {
     const script = document.createElement('script');
     script.src = url;
     script.async = true;
-    script.setAttribute('data-guesty-tok-key', '123');
     document.head.appendChild(script);
 
     const foundScript = findScriptElement(url);
@@ -42,7 +41,7 @@ describe('injectScriptElement', () => {
     expect(script).toBeInstanceOf(HTMLScriptElement);
     expect(script.src).toBe(url);
     expect(script.async).toBe(true);
-    expect(script.getAttribute('data-env')).toBeUndefined();
+    expect(script.getAttribute('data-env')).toBeNull();
     expect(script.onerror).toBe(onError);
     expect(script.onload).toBe(onSuccess);
   });
