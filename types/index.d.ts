@@ -11,6 +11,7 @@ export interface GuestyTokenizationStyles {
   colorBorderError?: string;
   colorBorderHover?: string;
   colorPlaceholder?: string;
+  colorBackground?: string;
   colorFormBackground?: string;
   colorBackgroundError?: string;
   colorBackgroundDisabled?: string;
