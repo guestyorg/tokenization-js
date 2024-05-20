@@ -1,5 +1,5 @@
 import { findScriptElement, injectScriptElement } from './utils';
-import { NAMESPACE, SCRIPT_URL } from './constants';
+import { NAMESPACE } from './constants';
 import { LoadScriptOptions } from '../types';
 
 export const loadScript = (options: LoadScriptOptions = {}) => {
@@ -7,7 +7,10 @@ export const loadScript = (options: LoadScriptOptions = {}) => {
     return Promise.resolve(null);
   }
 
-  const existingScript = findScriptElement(SCRIPT_URL);
+  const version = options.version ?? 'v1';
+  const scriptUrl = `https://pay.guesty.com/tokenization/${version}/init.js`;
+
+  const existingScript = findScriptElement(scriptUrl);
   const existingNamespace = window[NAMESPACE];
   if (existingScript) {
     if (existingNamespace) {
@@ -18,7 +21,7 @@ export const loadScript = (options: LoadScriptOptions = {}) => {
 
   return new Promise((resolve, reject) => {
     injectScriptElement({
-      url: SCRIPT_URL,
+      url: scriptUrl,
       sandbox: options.sandbox ?? false,
       onSuccess: () => {
         const newNamespace = window[NAMESPACE];
@@ -30,7 +33,7 @@ export const loadScript = (options: LoadScriptOptions = {}) => {
         }
       },
       onError: () => {
-        reject(new Error(`The script ${SCRIPT_URL} failed to load`));
+        reject(new Error(`The script ${scriptUrl} failed to load`));
       },
     });
   });
