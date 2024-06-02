@@ -11,8 +11,6 @@ This loads `guestyTokenization` object to the global `window` scope of the brows
 <script src="https://pay.guesty.com/tokenization/v1/init.js"></script>
 ```
 
-#### Note: To be PCI-compliant, you must load the SDK directly from https://pay.guesty.com. You cannot include it in a bundle or host it yourself
-
 ### Use it as an ES module
 
 Advantages of loading the SDK as a module:
@@ -20,6 +18,8 @@ Advantages of loading the SDK as a module:
 - loads script asynchronously to ensure page rendering isn't blocked
 - returns a Promise to know when script loading is complete
 - resolves to `null` if called in a server environment
+
+#### Note: To be PCI-compliant, you must load the SDK directly from https://pay.guesty.com (either by adding a script tag or using the ES module). You cannot include it in a bundle or host it yourself.
 
 ## Installation
 
