@@ -1,6 +1,6 @@
 {
   "name": "@guestyorg/tokenization-js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Guesty Tokenization SDK loading utility and types",
   "main": "index.js",
   "module": "lib/esm/guesty-tokenization-js.js",
