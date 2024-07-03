@@ -66,13 +66,31 @@ describe('loadScript', () => {
 
     expect(window[NAMESPACE]).toBeUndefined();
     const response = await loadScript({ sandbox: true });
-    expect(injectScriptElementSpy).toHaveBeenCalledWith({
+    expect(injectScriptElementSpy).toHaveBeenLastCalledWith({
       url: 'https://pay.guesty.com/tokenization/v1/init.js',
       sandbox: true,
       onSuccess: expect.any(Function),
       onError: expect.any(Function),
     });
     expect(response).toEqual(window[NAMESPACE]);
+
+    const response2 = await loadScript({ version: 'v1' });
+    expect(injectScriptElementSpy).toHaveBeenLastCalledWith({
+      url: 'https://pay.guesty.com/tokenization/v1/init.js',
+      sandbox: false,
+      onSuccess: expect.any(Function),
+      onError: expect.any(Function),
+    });
+    expect(response2).toEqual(window[NAMESPACE]);
+
+    const response3 = await loadScript({ version: 'v2' });
+    expect(injectScriptElementSpy).toHaveBeenLastCalledWith({
+      url: 'https://pay.guesty.com/tokenization/v2/init.js',
+      sandbox: false,
+      onSuccess: expect.any(Function),
+      onError: expect.any(Function),
+    });
+    expect(response3).toEqual(window[NAMESPACE]);
   });
 
   it('should reject if the script fails to load', async () => {
