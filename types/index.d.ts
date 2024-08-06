@@ -21,6 +21,14 @@ export interface GuestyTokenizationStyles {
 }
 
 type Section = 'cardholderName' | 'paymentDetails' | 'billingAddress';
+type TCardholderNameInput = 'firstName' | 'lastName' | 'cardHolderId';
+type TBillingAddressInput = 'street' | 'city' | 'state' | 'zipCode' | 'country';
+type TPaymentDetailsInput = 'cardNumber' | 'expirationDate' | 'csc';
+
+type TInput =
+  | TCardholderNameInput
+  | TBillingAddressInput
+  | TPaymentDetailsInput;
 
 export interface GuestyTokenizationRenderOptions {
   containerId: string;
@@ -31,19 +39,19 @@ export interface GuestyTokenizationRenderOptions {
   styles?: GuestyTokenizationStyles;
   lang?: string;
   initialValues?: {
-    firstName?: string;
-    lastName?: string;
-    street?: string;
-    city?: string;
-    state?: string;
-    zipCode?: string;
-    country?: string;
+    [key in Exclude<TInput, 'cardHolderId' | TPaymentDetailsInput>]?: string;
   };
   showInitialValuesToggle?: boolean;
   initialValuesToggleLabel?: string;
   sections?: Section[];
   showSupportedCards?: boolean;
   showPciCompliantLink?: boolean;
+  inputsConfig?: {
+    [key in TInput]?: {
+      label?: string;
+      placeholder?: string;
+    };
+  };
 }
 
 export interface PaymentMethod {
