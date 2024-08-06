@@ -58,7 +58,7 @@ This is equivalent to the following script:
 #### Async/Await
 
 ```js
-import { loadScript } from '@guesty/tokenization-js';
+import { loadScript } from '@guestyorg/tokenization-js';
 
 try {
   const guestyTokenization = await loadScript();
@@ -71,7 +71,7 @@ try {
 #### Promises
 
 ```js
-import { loadScript } from '@guesty/tokenization-js';
+import { loadScript } from '@guestyorg/tokenization-js';
 
 loadScript()
   .then((guestyTokenization) => {
