@@ -76,7 +76,13 @@ export interface GuestyTokenizationV2RenderOptions {
   showPciCompliantLink?: boolean;
 }
 
-export interface GuestyTokenizationV2SubmitPayload {
+export interface GuestyTokenizationV2ApiV2SubmitPayload {
+  amount: number;
+  currency: string;
+  apiVersion: 'v2';
+}
+
+export interface GuestyTokenizationV2ApiV3SubmitPayload {
   listingId: string;
   quoteId: string;
   amount: number;
@@ -87,7 +93,12 @@ export interface GuestyTokenizationV2SubmitPayload {
     email?: string;
     phone?: string;
   };
+  apiVersion?: 'v3';
 }
+
+export type GuestyTokenizationV2SubmitPayload =
+  | GuestyTokenizationV2ApiV2SubmitPayload
+  | GuestyTokenizationV2ApiV3SubmitPayload;
 
 export interface PaymentMethod {
   _id: string;
