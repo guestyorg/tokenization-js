@@ -41,6 +41,7 @@ Import the `loadScript` function for asynchronously loading the Guesty Tokenizat
 #### options
 
 - `sandbox` - load the SDK in a sandbox mode
+- `version` - SDK version to load (default: `v1`)
 
 ```js
 loadScript({ sandbox: true });
