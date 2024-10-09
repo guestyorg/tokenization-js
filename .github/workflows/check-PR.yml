@@ -1,0 +1,26 @@
+name: Check Jira Ticket ID presence
+
+on: pull_request
+
+jobs:
+  check-jira-ticket:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check Jira Ticket ID presence
+      env:
+        PR_TITLE: ${{ github.event.pull_request.title }}
+      run: |
+        if [[ ! "$PR_TITLE" =~ [A-Z][A-Z0-9_]+-[1-9][0-9]* ]]; then
+          echo "::error::No Jira ticket ID found in PR title - $PR_TITLE"  
+          echo "PR titles should CONTAIN a Jira ticket ID (e.g., PROJ-123 some title)"
+          echo "Please fix PR message and push new commit to the PR to retrigger the check"
+          BAD_TITLE="true"
+        fi
+        if [[ ! "$GITHUB_HEAD_REF" =~ [A-Z][A-Z0-9_]+-[1-9][0-9]* ]]; then
+          echo "::error::No Jira ticket ID found in the branch name $GITHUB_REF_NAME"
+          echo "Branch name must contain Jira ticket ID example: feature/select-properties/UNI-777"
+          echo "Branch name can't be changed, follow instructions for PR title"
+          BAD_BRANCH='true'
+        fi
+        [[ "$BAD_TITLE" != 'true' || "$BAD_BRANCH" != 'true' ]] && exit 0 || exit 1
+        
