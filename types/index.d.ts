@@ -82,19 +82,29 @@ export interface GuestyTokenizationV2ApiV2SubmitPayload {
   apiVersion: 'v2';
 }
 
-export interface GuestyTokenizationV2ApiV3SubmitPayload {
+type ReservationOrQuote =
+  | {
+      reservationId: string;
+      quoteId?: never;
+      guest?: never;
+    }
+  | {
+      quoteId: string;
+      guest: {
+        firstName: string;
+        lastName: string;
+        email?: string;
+        phone?: string;
+      };
+      reservationId?: never;
+    };
+
+export type GuestyTokenizationV2ApiV3SubmitPayload = {
   listingId: string;
-  quoteId: string;
   amount: number;
   currency: string;
-  guest: {
-    firstName: string;
-    lastName: string;
-    email?: string;
-    phone?: string;
-  };
   apiVersion?: 'v3';
-}
+} & ReservationOrQuote;
 
 export type GuestyTokenizationV2SubmitPayload =
   | GuestyTokenizationV2ApiV2SubmitPayload
@@ -120,21 +130,21 @@ export interface GuestyTokenizationV2Namespace {
   validate: () => void;
 }
 
-type NamespaceBasedOnVersion<T extends LoadScriptOptions['version']> =
-  T extends 'v1'
-    ? GuestyTokenizationV1Namespace
-    : T extends 'v2'
-    ? GuestyTokenizationV2Namespace
-    : GuestyTokenizationV1Namespace;
-
 export interface LoadScriptOptions {
   sandbox?: boolean;
   version?: 'v1' | 'v2';
 }
 
-export function loadScript(
-  options?: LoadScriptOptions
-): Promise<NamespaceBasedOnVersion<LoadScriptOptions['version']> | null>;
+type NamespaceBasedOnVersion<T extends LoadScriptOptions['version']> =
+  T extends 'v1'
+    ? GuestyTokenizationV1Namespace
+    : T extends 'v2'
+    ? GuestyTokenizationV2Namespace
+    : never;
+
+export function loadScript<T extends LoadScriptOptions['version']>(
+  options?: LoadScriptOptions & { version: T }
+): Promise<NamespaceBasedOnVersion<T> | null>;
 
 declare global {
   interface Window {
