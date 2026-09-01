@@ -8,7 +8,7 @@ Add a script tag to your application `head` or `body`.
 This loads `guestyTokenization` object to the global `window` scope of the browser
 
 ```html
-<script src="https://pay.guesty.com/tokenization/v1/init.js"></script>
+<script src="https://pay.guesty.com/tokenization/v3/init.js"></script>
 ```
 
 ### Use it as an ES module
@@ -41,17 +41,17 @@ Import the `loadScript` function for asynchronously loading the Guesty Tokenizat
 #### options
 
 - `sandbox` - load the SDK in a sandbox mode
-- `version` - SDK version to load (default: `v1`)
+- `version` - SDK version to load (default: `v1`). Supported values: `v1`, `v2`, `v3`
 
 ```js
-loadScript({ sandbox: true });
+loadScript({ sandbox: true, version: 'v3' });
 ```
 
 This is equivalent to the following script:
 
 ```html
 <script
-  src="https://pay.guesty.com/tokenization/v1/init.js"
+  src="https://pay.guesty.com/tokenization/v3/init.js"
   data-env="sandbox"
 ></script>
 ```

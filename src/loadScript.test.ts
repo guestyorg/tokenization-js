@@ -91,6 +91,15 @@ describe('loadScript', () => {
       onError: expect.any(Function),
     });
     expect(response3).toEqual(window[NAMESPACE]);
+
+    const response4 = await loadScript({ version: 'v3' });
+    expect(injectScriptElementSpy).toHaveBeenLastCalledWith({
+      url: 'https://pay.guesty.com/tokenization/v3/init.js',
+      sandbox: false,
+      onSuccess: expect.any(Function),
+      onError: expect.any(Function),
+    });
+    expect(response4).toEqual(window[NAMESPACE]);
   });
 
   it('should reject if the script fails to load', async () => {
