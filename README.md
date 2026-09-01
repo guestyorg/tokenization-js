@@ -62,7 +62,7 @@ This is equivalent to the following script:
 import { loadScript } from '@guestyorg/tokenization-js';
 
 try {
-  const guestyTokenization = await loadScript();
+  const guestyTokenization = await loadScript({ version: 'v3' });
   // Guesty Tokenization JS SDK is loaded and ready to use
 } catch (error) {
   console.error('Failed to load the Guesty Tokenization JS SDK script', error);
@@ -74,7 +74,7 @@ try {
 ```js
 import { loadScript } from '@guestyorg/tokenization-js';
 
-loadScript()
+loadScript({ version: 'v3' })
   .then((guestyTokenization) => {
     // Guesty Tokenization JS SDK is loaded and ready to use
   })

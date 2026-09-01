@@ -1,4 +1,8 @@
 import { findScriptElement, injectScriptElement } from './utils';
+import {
+  clearMismatchedNamespace,
+  namespaceMatchesVersion,
+} from './namespaceVersion';
 import { NAMESPACE } from './constants';
 import { LoadScriptOptions } from '../types';
 
@@ -8,29 +12,43 @@ export const loadScript = (options: LoadScriptOptions = {}) => {
   }
 
   const version = options.version ?? 'v1';
+  const sandbox = options.sandbox ?? false;
   const scriptUrl = `https://pay.guesty.com/tokenization/${version}/init.js`;
 
-  const existingScript = findScriptElement(scriptUrl);
+  const existingScript = findScriptElement(scriptUrl, sandbox);
   const existingNamespace = window[NAMESPACE];
+
+  if (
+    existingScript &&
+    existingNamespace &&
+    namespaceMatchesVersion(existingNamespace, version)
+  ) {
+    return Promise.resolve(existingNamespace);
+  }
+
   if (existingScript) {
-    if (existingNamespace) {
-      return Promise.resolve(existingNamespace);
-    }
     existingScript.remove();
   }
+
+  clearMismatchedNamespace(version);
 
   return new Promise((resolve, reject) => {
     injectScriptElement({
       url: scriptUrl,
-      sandbox: options.sandbox ?? false,
+      sandbox,
       onSuccess: () => {
         const newNamespace = window[NAMESPACE];
 
-        if (newNamespace) {
+        if (newNamespace && namespaceMatchesVersion(newNamespace, version)) {
           resolve(newNamespace);
-        } else {
-          reject(new Error('Guesty Tokenization is not available'));
+          return;
         }
+
+        if (newNamespace) {
+          delete window[NAMESPACE];
+        }
+
+        reject(new Error('Guesty Tokenization is not available'));
       },
       onError: () => {
         reject(new Error(`The script ${scriptUrl} failed to load`));

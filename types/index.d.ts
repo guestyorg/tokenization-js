@@ -228,23 +228,49 @@ export type GuestyTokenizationV2SubmitPayload =
   | GuestyTokenizationV2ApiV3SubmitPayload;
 
 export interface GuestyTokenizationV3SubmitGuest {
-  firstName?: string;
-  lastName?: string;
+  firstName: string;
+  lastName: string;
   email?: string;
   phone?: string;
 }
 
-export interface GuestyTokenizationV3CardSubmitPayload {
-  amount?: number;
-  currency?: string;
-  skip3DS?: boolean;
-  guest?: GuestyTokenizationV3SubmitGuest;
-  listingId?: string;
-  quoteId?: string;
-  reservationId?: string;
-  apiVersion?: 'v2' | 'v3';
+interface GuestyTokenizationV3SubmitPayloadBase {
+  amount: number;
+  currency: string;
   method?: 'verify' | 'verify_no_3ds';
 }
+
+export interface GuestyTokenizationV3LegacySubmitPayload
+  extends GuestyTokenizationV3SubmitPayloadBase {
+  apiVersion: 'v2';
+  listingId?: never;
+  reservationId?: never;
+  quoteId?: never;
+  guest?: never;
+}
+
+export interface GuestyTokenizationV3InstantChargeSubmitPayload
+  extends GuestyTokenizationV3SubmitPayloadBase {
+  listingId: string;
+  reservationId: string;
+  quoteId?: never;
+  guest?: never;
+  apiVersion?: 'v3';
+}
+
+export interface GuestyTokenizationV3QuoteSubmitPayload
+  extends GuestyTokenizationV3SubmitPayloadBase {
+  listingId: string;
+  quoteId: string;
+  guest: GuestyTokenizationV3SubmitGuest;
+  reservationId?: never;
+  apiVersion?: 'v3';
+}
+
+export type GuestyTokenizationV3CardSubmitPayload =
+  | GuestyTokenizationV3LegacySubmitPayload
+  | GuestyTokenizationV3InstantChargeSubmitPayload
+  | GuestyTokenizationV3QuoteSubmitPayload;
 
 export type GuestyTokenizationV3SubmitPayload =
   GuestyTokenizationV3CardSubmitPayload;
@@ -301,9 +327,15 @@ type NamespaceBasedOnVersion<T extends LoadScriptOptions['version']> =
     ? GuestyTokenizationV3Namespace
     : never;
 
-export function loadScript<T extends LoadScriptOptions['version']>(
-  options?: LoadScriptOptions & { version: T }
+export function loadScript(
+  options?: LoadScriptOptions
+): Promise<GuestyTokenizationV1Namespace | null>;
+export function loadScript<T extends 'v1' | 'v2' | 'v3'>(
+  options: LoadScriptOptions & { version: T }
 ): Promise<NamespaceBasedOnVersion<T> | null>;
+export function loadScript<T extends LoadScriptOptions['version']>(
+  options?: LoadScriptOptions & { version?: T }
+): Promise<NamespaceBasedOnVersion<T> | GuestyTokenizationV1Namespace | null>;
 
 declare global {
   interface Window {

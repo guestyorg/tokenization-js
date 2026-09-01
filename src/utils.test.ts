@@ -19,6 +19,21 @@ describe('findScriptElement', () => {
 
     expect(foundScript).toBe(script);
   });
+
+  it('should match sandbox scripts separately from production scripts', () => {
+    const url = 'https://pay.guesty.com/tokenization/v3/init.js';
+    const productionScript = document.createElement('script');
+    productionScript.src = url;
+    document.head.appendChild(productionScript);
+
+    const sandboxScript = document.createElement('script');
+    sandboxScript.src = url;
+    sandboxScript.setAttribute('data-env', 'sandbox');
+    document.head.appendChild(sandboxScript);
+
+    expect(findScriptElement(url, false)).toBe(productionScript);
+    expect(findScriptElement(url, true)).toBe(sandboxScript);
+  });
 });
 
 describe('injectScriptElement', () => {
