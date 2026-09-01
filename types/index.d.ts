@@ -49,9 +49,12 @@ export interface GuestyTokenizationV3Styles {
 type Section = 'cardholderName' | 'paymentDetails' | 'billingAddress';
 type TCardholderNameInput = 'firstName' | 'lastName' | 'cardHolderId';
 type TBillingAddressInput = 'street' | 'city' | 'state' | 'zipCode' | 'country';
-type TPaymentDetailsInput = 'cardNumber' | 'expirationDate' | 'csc';
-type TBankDetailsInput =
+type TPaymentDetailsInput =
   | 'nameOnCard'
+  | 'cardNumber'
+  | 'expirationDate'
+  | 'csc';
+type TBankDetailsInput =
   | 'accountHolderName'
   | 'routingNumber'
   | 'accountNumber'
