@@ -1,5 +1,21 @@
-export const findScriptElement = (url: string) => {
-  return document.querySelector(`script[src="${url}"]`);
+export const findScriptElement = (url: string, sandbox = false) => {
+  const scripts = document.querySelectorAll(`script[src="${url}"]`);
+
+  for (let index = 0; index < scripts.length; index += 1) {
+    const script = scripts.item(index);
+
+    if (!script) {
+      continue;
+    }
+
+    const isSandboxScript = script.getAttribute('data-env') === 'sandbox';
+
+    if (isSandboxScript === sandbox) {
+      return script;
+    }
+  }
+
+  return null;
 };
 
 export interface InjectScriptElementOptions {

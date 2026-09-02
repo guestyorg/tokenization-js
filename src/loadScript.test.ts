@@ -12,6 +12,11 @@ describe('loadScript', () => {
     validate: jest.fn(),
   };
 
+  const guestyTokenizationV3Mock = {
+    ...guestyTokenizationMock,
+    handle3DSChallenge: jest.fn(),
+  };
+
   beforeEach(() => {
     document.head.innerHTML = '';
   });
@@ -91,6 +96,76 @@ describe('loadScript', () => {
       onError: expect.any(Function),
     });
     expect(response3).toEqual(window[NAMESPACE]);
+
+    injectScriptElementSpy.mockImplementation(
+      ({ onSuccess }: utils.InjectScriptElementOptions) => {
+        window[NAMESPACE] = guestyTokenizationV3Mock;
+        process.nextTick(() => onSuccess());
+      }
+    );
+
+    const response4 = await loadScript({ version: 'v3' });
+    expect(injectScriptElementSpy).toHaveBeenLastCalledWith({
+      url: 'https://pay.guesty.com/tokenization/v3/init.js',
+      sandbox: false,
+      onSuccess: expect.any(Function),
+      onError: expect.any(Function),
+    });
+    expect(response4).toEqual(window[NAMESPACE]);
+  });
+
+  it('should not reuse a v1 namespace when loading v3', async () => {
+    document.head.innerHTML =
+      '<script src="https://pay.guesty.com/tokenization/v3/init.js"></script>';
+    window[NAMESPACE] = guestyTokenizationMock;
+
+    injectScriptElementSpy.mockImplementation(
+      ({ onSuccess }: utils.InjectScriptElementOptions) => {
+        window[NAMESPACE] = guestyTokenizationV3Mock;
+        process.nextTick(() => onSuccess());
+      }
+    );
+
+    const response = await loadScript({ version: 'v3' });
+
+    expect(injectScriptElementSpy).toHaveBeenCalled();
+    expect(response).toEqual(guestyTokenizationV3Mock);
+  });
+
+  it('should not reuse a production script when sandbox is requested', async () => {
+    document.head.innerHTML =
+      '<script src="https://pay.guesty.com/tokenization/v3/init.js"></script>';
+    window[NAMESPACE] = guestyTokenizationV3Mock;
+
+    injectScriptElementSpy.mockImplementation(
+      ({ onSuccess }: utils.InjectScriptElementOptions) => {
+        window[NAMESPACE] = guestyTokenizationV3Mock;
+        process.nextTick(() => onSuccess());
+      }
+    );
+
+    await loadScript({ version: 'v3', sandbox: true });
+
+    expect(injectScriptElementSpy).toHaveBeenCalledWith({
+      url: 'https://pay.guesty.com/tokenization/v3/init.js',
+      sandbox: true,
+      onSuccess: expect.any(Function),
+      onError: expect.any(Function),
+    });
+  });
+
+  it('should reject when the loaded namespace does not match the requested version', async () => {
+    injectScriptElementSpy.mockImplementation(
+      ({ onSuccess }: utils.InjectScriptElementOptions) => {
+        window[NAMESPACE] = guestyTokenizationMock;
+        process.nextTick(() => onSuccess());
+      }
+    );
+
+    await expect(loadScript({ version: 'v3' })).rejects.toEqual(
+      new Error('Guesty Tokenization is not available')
+    );
+    expect(window[NAMESPACE]).toBeUndefined();
   });
 
   it('should reject if the script fails to load', async () => {
